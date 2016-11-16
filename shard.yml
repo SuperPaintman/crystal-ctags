@@ -4,4 +4,7 @@ version: 0.1.0
 authors:
   - SuperPaintman <SuperPaintmanDeveloper@gmail.com>
 
+description: |
+  Tool for generation ctags for Crystal
+
 license: MIT

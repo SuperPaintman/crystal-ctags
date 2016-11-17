@@ -67,8 +67,9 @@ module CrystalCtags
     end
 
     def visit(node : Crystal::Def)
-      start_args = "def #{node.name}".size
-      signature = node.to_s.lines.first[start_args..-1].rstrip
+      first_line = node.to_s.lines.first
+      start_args = first_line.index(node.name).not_nil! + node.name.size
+      signature = first_line[start_args..-1].rstrip
       signature = nil if signature.size == 0
 
       process_node node, node.name, :def, signature

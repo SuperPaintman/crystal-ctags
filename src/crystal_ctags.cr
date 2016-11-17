@@ -19,19 +19,20 @@ module CrystalCtags
     @kind : Symbol
     @line : Int32?
     @scope : Array(String)?
+    @signature : String?
     @type : String?
-    def initialize(@name, @filename, @regex, @kind, @line = nil, @scope = nil, @type = nil)
+
+    def initialize(@name, @filename, @regex, @kind, @line = nil, @scope = nil, @signature = nil, @type = nil)
     end
 
     def to_s(io)
       io << @name << "\t" << @filename << "\t" << @regex << ";\"\t" << TAGS[@kind]
-      
       io << "\tline:" << @line unless @line.nil?
       io << "\tnamespace:" << @scope.not_nil!.join(".") unless @scope.not_nil!.empty?
+      io << "\tsignature:" << @signature unless @signature.nil?
       io << "\ttype:" << @type unless @type.nil?
     end
   end
-
 
   class CtagsVisitor < Crystal::Visitor
     REPLACEMENTS = {
@@ -65,7 +66,11 @@ module CrystalCtags
     end
 
     def visit(node : Crystal::Def)
-      process_node node, node.name, :def
+      start_args = "def #{node.name}".size
+      signature = node.to_s.lines.first[start_args..-1].rstrip
+      signature = nil if signature.size == 0
+
+      process_node node, node.name, :def, signature
       false
     end
 
@@ -104,7 +109,7 @@ module CrystalCtags
       @scope.pop?
     end
 
-    def process_node(node, name : String, kind : Symbol)
+    def process_node(node, name : String, kind : Symbol, signature : String | Nil = nil)
       location = node.location
       return true unless location
 
@@ -115,7 +120,7 @@ module CrystalCtags
       line = @content.lines[line_number - 1]
       regex = regexpize(line)
 
-      tag = CrystalCtags::Tag.new(name, relativize(@filename), regex, kind, line_number, @scope.dup)
+      tag = CrystalCtags::Tag.new(name, relativize(@filename), regex, kind, line_number, @scope.dup, signature)
       @tags << tag
 
       true

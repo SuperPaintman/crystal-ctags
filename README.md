@@ -6,6 +6,7 @@
 
 Tool for generation `ctags` for **Crystal**
 
+![Screenshot][screenshot-image]
 
 
 ## Installation

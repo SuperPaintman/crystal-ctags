@@ -48,6 +48,7 @@ module CrystalCtags
 
     @filename : String
     @content : String
+
     def initialize(@filename, @content)
       @tags = [] of CrystalCtags::Tag
       @scope = [] of String
@@ -142,7 +143,6 @@ module CrystalCtags
     end
   end
 
-
   class Ctags
     getter tags
 
@@ -182,4 +182,3 @@ module CrystalCtags
     end
   end
 end
-

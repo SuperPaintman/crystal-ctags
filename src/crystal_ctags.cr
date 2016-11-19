@@ -1,5 +1,6 @@
 require "compiler/crystal/syntax"
-require "./crystal_ctags/*"
+
+require "./crystal_ctags/version"
 
 module CrystalCtags
   TAGS = {

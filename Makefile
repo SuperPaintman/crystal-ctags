@@ -1,12 +1,13 @@
 CRYSTAL_BIN ?= $(shell which crystal)
+SHARDS_BIN ?= $(shell which shards)
 SERVE_BIN ?= $(shell which crystalctags)
 PREFIX ?= /usr/local
 
 all: clean build
 
 build:
-	$(CRYSTAL_BIN) deps
-	$(CRYSTAL_BIN) build --release -o bin/crystalctags src/crystal_ctags/bootstrap.cr $(CRFLAGS)
+	$(SHARDS_BIN) install
+	$(SHARDS_BIN) build --release $(CRFLAGS)
 
 clean:
 	rm -f ./bin/crystalctags

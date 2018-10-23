@@ -4,6 +4,10 @@ version: 0.1.0
 authors:
   - SuperPaintman <SuperPaintmanDeveloper@gmail.com>
 
+targets:
+  crystalctags:
+    main: src/crystal_ctags/bootstrap.cr
+
 description: |
   Tool for generation ctags for Crystal
 

@@ -89,7 +89,7 @@ let g:tagbar_type_crystal = {
 ## Contributors
 
 - [SuperPaintman](https://github.com/SuperPaintman) SuperPaintman - creator, maintainer
-
+- [anicholson](https://github.com/anicholson) Andy Nicholson - contributor
 
 --------------------------------------------------------------------------------
 
